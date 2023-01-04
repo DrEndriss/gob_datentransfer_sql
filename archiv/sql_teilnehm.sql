@@ -1,0 +1,17 @@
+use Kufer_Reporting
+
+select 
+nr, suchbegriff, name, vorname, typ, zusatz, ZUSATZ2, ort, strasse, TEL_ANZEIGE, TEL2_ANZEIGE, FAX_ANZEIGE, EMAIL_ANZEIGE, mandant, NOWERBUNG, nopostwerb_bearb, nopostwerb_datum, 
+nopostwerb_via, nopostwerb_bem, nomailwerb, nomailwerb_bearb, nomailwerb_datum, nomailwerb_via, nomailwerb_bem, notelwerb, notelwerb_bearb, notelwerb_datum, notelwerb_via, notelwerb_bem, 
+geschlecht, titel, gebdat, gebjahr, ALTERSKL, BERUF, BANKBEZ, konto, blz, erm_grund, erm_ende, erm_proz, guthaben, kontoname, KZ_TEXT, PERS_NR, ANSPRACHE, BEARBEITER, SCHULABSCH, NATION, 
+STAATSANG, BUNDESLAND, BEARBDATUM, RCHG_ADR_1, RCHG_ADR_2, RCHG_ADR_3, RCHG_ADR_4, RCHG_ADR_5, RCHG_ADR_6, RCHG_ADR_7, MITGLIEDNR, ARBAMTNR, DUBLETTE, AUSBILDUNG, STUDIUM, ARBEIT, 
+LAST_ERTEILT, REGISTRIERUNG, NAME_VORNAME, Anrede, MITGEINTR, MITGBETR, MOBIL_ANZEIGE, FAX2_ANZEIGE, SozBerufstaetig, SozArbeitgeber, SozPosition, SozLaengsteTaetigkeit, SozEhrenamt, 
+SozBemerkung, ArbAmtOrt, info, INFO_INTERN, eLearningPersonAktiv, eLearningLogin, BIC, IBAN, Verstorben, progh_dat, ErstelltDatum, ErstelltVon, Krit1, Krit2, Krit3, Krit4, Krit5, Krit6, 
+SozProjekt, Name_Titel, eLearningUserID, eLearningVon, eLearningBis, UstID, Newsl_Erlaubt, Newsl_Erlart, Newsl_AnlBearb, Newsl_AnlDatum, Newsl_Bemerk, InfoIntAnm, InfoAllgAnm, Zusatz3, 
+abteilung, entsendvhs, extern, adrfahrgemeinschaft, gekauftam, anm_sperre, nofaxwerb, nofaxwerb_bearb, nofaxwerb_bem, nofaxwerb_via, nofaxwerb_datum, behindert_jn, krit7, krit8, krit9, 
+krit10, krit11, krit12, krit13, krit14, krit15, krit16, noepostwerb, noepostwerb_bearb, noepostwerb_bem, noepostwerb_datum, noepostwerb_via, unbverzogen, bekverzogen, nichtmeld, krit17, 
+krit18, krit19, krit20, krit21, krit22, krit23, rchg_adr_nr, sap_angelegt
+
+
+
+  from teilnehm 

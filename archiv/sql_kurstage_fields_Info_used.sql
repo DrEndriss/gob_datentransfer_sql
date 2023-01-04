@@ -1,0 +1,3 @@
+use Kufer_Reporting 
+
+select column_name, data_type, COLUMN_DEFAULT, CHARACTER_MAXIMUM_LENGTH, CHARACTER_SET_NAME, NUMERIC_PRECISION from INFORMATION_SCHEMA.columns where table_name = 'kurstage' and column_name in ('id','knr','datum','zeit_beg','zeit_ende','ort','dnr','bearbeiter','ausf','minuten','pause','medien1','medien2','medien3','medien4','medien5','medien6','medien7','medien8','medien9','bearbdatum','wotag','text','QualiID','gh_versendung','kosten','il_anw_ok','erfasstam','erfasstvon','medientext','geprueft','keine_raum_ue','bestuhlung','kosten2','kosten3','kosten4','kosten5','kosten6','rechnungseingang','kurstagGUID','zuspaetabgesagt')

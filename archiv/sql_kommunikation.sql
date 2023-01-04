@@ -1,0 +1,1 @@
+select id,nr, Typ, bezeichner, wert, art from KOMMUNIKATION

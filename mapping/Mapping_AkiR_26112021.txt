@@ -1,0 +1,307 @@
+select k.NR,k.TITEL,k.kurzbez, k.aussenst,
+
+case 
+
+when ((k.nr like '%BROSCH%')) THEN 'VAVA000001' ---Broschüre
+
+when ((k.nr like 'CR%')) THEN 'VAVA000002' ---Refresher-Prä
+when ((substring(k.nr,1,1) = 'L' ) and (k.TITEL like '%Refresher%')) THEN 'VAVA000027' ---Refresher-Online
+
+when ((substring(k.nr,1,1) = 'L' ) and (substring(k.kurzbez,7,3) = 'Eng' )) THEN 'VAVA000004' ---CINA-ENglisch
+
+when ((k.kurzbez like '%CINA® Konsolid%') and (k.TITEL not like '%CINA® Konsolidierung-Konsolidierung Basiswissen 1. Pflichtseminar%') and (k.TITEL not like '%2. Pflichtseminar%') 
+and (k.TITEL not like '%3. Pflichtseminar%') and (k.TITEL not like '%Impairment oder Konsolidierung Excel%')) THEN 'VAVA000005' ---CINA-Konso-Hauptkurs
+when ((k.TITEL like '%CINA® Konsolidierung-Konsolidierung Basiswissen 1. Pflichtseminar%')) THEN 'VAVA000006' ---CINA-Konso-1Wahlfach
+when ((k.TITEL like '%CINA® Konsolidierung-Konzernrechnungslegung 2. Pflichtseminar%')) THEN 'VAVA000007' ---CINA-Konso-2Wahlfach
+when ((k.TITEL like '%3. Pflichtseminar%')) THEN 'VAVA000008' ---CINA-Konso-3Wahlfach
+when ((k.TITEL like '%Impairment oder Konsolidierung Excel%')) THEN 'VAVA000009' ---CINA-Konso-4Wahlfach
+
+when ((k.kurzbez like 'IFRS Basiswissen%') AND (k.aussenst not in ('Webinar'))) THEN 'VAVA000010' ---IFRS Basiswissen-Prä
+when ((k.kurzbez like 'Ausfall: IFRS Basiswissen%') AND (k.aussenst not in ('Webinar'))) THEN 'VAVA000010' ---Ausfall:IFRS Basiswissen-Prä
+when ((k.kurzbez like 'IFRS Basiswissen%') AND (k.aussenst in ('Webinar'))) THEN 'VAVA000012' ---IFRS Basiswissen-Onli
+when ((k.kurzbez like 'Ausfall: IFRS Basiswissen%') AND (k.aussenst in ('Webinar'))) THEN 'VAVA000012' ---Ausfall:IFRS Basiswissen-Onli
+
+when ((k.kurzbez like '%Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000011' ---Excel-Anwenderseminar-Prä
+when ((k.kurzbez like '%Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000038' ---Excel-Anwenderseminar-Onli
+
+when ((substring(k.kurzbez,1,14) = 'Konsolidierung') and (k.kurzbez not like 'Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000013' ---Konsolidierung Excel-Anwenderseminar-Present
+when ((substring(k.kurzbez,1,23) = 'Ausfall: Konsolidierung') and (k.kurzbez not like 'Ausfall: Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000013' ---Ausfall:Konsolidierung Excel-Anwenderseminar-Present
+when ((substring(k.kurzbez,1,14) = 'Konsolidierung') and (k.kurzbez not like 'Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000063' ---Konsolidierung Excel-Anwenderseminar-Present
+when ((substring(k.kurzbez,1,23) = 'Ausfall: Konsolidierung') and (k.kurzbez not like 'Ausfall: Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000063' ---Ausfall:Konsolidierung Excel-Anwenderseminar-Present
+
+when ((k.kurzbez like '%IFRS für Controller%')) THEN 'VAVA000014' ---IFRS für Controller
+
+when ((k.nr like '%INHAIR%')) THEN 'VAVA000015' ---Inhouse
+
+when ((k.kurzbez like '%IFRS Kom%') and (k.nr not like '%INHAIR%') and (k.kurzbez not like '%BayWa r.e. renewable energy GmbH, IFRS kompakt, 4-tägig%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000016' ---IFRSKompakt-Prä
+when ((k.kurzbez like '%IFRS Kom%') and (k.nr not like '%INHAIR%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000064' ---IFRSKompakt-onlin
+
+when ((k.kurzbez like '%Pensions%') and (k.nr not like '%INHAIR%')) THEN 'VAVA000017' ---Inhouse
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%CINA®  Specialist%') and (k.kurzbez not like '%CINA®  Specialist - 1. Pflichtseminar CINA® REFRESHER%') 
+and (k.kurzbez not like '%CINA®  Specialist - 1. Wahlseminar%') and (k.kurzbez not like '%CINA®  Specialist - 2. Wahlseminar%')) THEN 'VAVA000018' ---CINASpec-Haupt
+when ((k.kurzbez like '%CINA®  Specialist - 1. Pflichtseminar CINA® REFRESHER%')) THEN 'VAVA000048' ---CINASpec-1Pflichtsem
+when ((k.kurzbez like '%CINA®  Specialist - 1. Wahlseminar%')) THEN 'VAVA000020' ---CINA®  Specialist-1Wahlseminar
+when ((k.kurzbez like '%CINA®  Specialist - 2. Wahlseminar%')) THEN 'VAVA000021' ---CINA®  Specialist-2Wahlseminar
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Kompakt%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Wahlseminar%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Pflichtseminar%') 
+and (k.kurzbez not like '%Nypro Healthcare GmbH, US-GAAP kompakt, 1-tägig%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000019' ---US-GAAP-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Kompakt%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Wahlseminar%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Pflichtseminar%') 
+and (k.kurzbez not like '%Nypro Healthcare GmbH, US-GAAP kompakt, 1-tägig%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000039' ---US-GAAP-Onl
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Update%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000022' ---US-GAAP-Update-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Update%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000040' ---US-GAAP Update-Onlin
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP für Führungs%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000023' ---US-GAAP-Führugskräfte-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP für Führungs%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000041' ---US-GAAP-Führugskräfte-Onlin
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Specialist%') and (k.kurzbez not like '%1. Pflichtseminar%') and (k.kurzbez not like '%2. Pflichtseminar%')) THEN 'VAVA000024' ---US-GAAP-Spec
+when ((substring(k.nr,9,1) = 'A' ) and (k.kurzbez like '%US-GAAP Specialist%')) THEN 'VAVA000025' ---US-GAAP Specialist20-US-GAAP-KK-1Pflichtseminar
+when ((substring(k.nr,9,1) = 'B' ) and (k.kurzbez like '%US-GAAP Specialist%')) THEN 'VAVA000026' ---US-GAAP Specialist20-US-GAAP-SOX-2Pflichtseminar
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%IFRS Update%') and (k.kurzbez not like '%Basler AG- IFRS UPdate und Praxistraining, 1-tägig%') 
+and (k.kurzbez not like '%IFRS UPDATE: Aktuelle Trends und Änderungen der IFRS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000028' ---IFRSUpdate-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%IFRS Update%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000056' ---IFRSUpdate-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Banken%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000050' ---IFRS bei Banken-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Banken%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000057' ---IFRS bei Banken-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen%') and (k.kurzbez not like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000029' ---IFRS bei Versicheurng-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen%') and (k.kurzbez not like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000065' ---IFRS bei Banken-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000030' ---IFRS bei Versicheurng-Bilanz-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000066' ---IFRS bei Banken-Bilanz-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Konzernrechnungslegung%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000031' ---Konzernrechnungslegung-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Konzernrechnungslegung%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000067' ---Konzernrechnungslegung-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kaufpreisalo%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000032' ---Kaufpreisalo-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kaufpreisalo%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000068' ---Kaufpreisalo-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Impairment%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000033' ---Impairment-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Impairment%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000069' ---Impairment--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Leasingbilanzierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000034' ---Leasingbilanzierung-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Leasingbilanzierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000070' ---Leasingbilanzierung--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Hedge%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000035' ---Hedge Accounting-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Hedge%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000071' ---Hedge Accounting--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Transaktionsprozesse%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000036' ---Transaktionsprozesse-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Transaktionsprozesse%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000072' ---Transaktionsprozesse--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Unternehmensbewertung - Mergers & Acquisitions%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000037' ---Bewertungsmethoden-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bewertungsmethoden%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000037' ---Bewertungsmethoden-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Unternehmensbewertung - Mergers & Acquisitions%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000073' ---Bewertungsmethoden-Onl
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bewertungsmethoden%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000073' ---Bewertungsmethoden-Onl
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Anlagenbuchhaltung nach IAS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000042' ---Anlagenbuchhaltung nach IAS-Prä
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS 16%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000043' ---IFS16
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kapitalflussrechnung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000044' ---Kapitalflussrechnung-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kapitalflussrechnung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000074' ---Kapitalflussrechnung--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS 9%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000045' ---IFRS9-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS 9%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000075' ---IFRS9--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Umsatz- und Gewinnrealisierung nach IFRS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000046' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Umsatz- und Gewinnrealisierung nach IFRS%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000076'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Accounting English%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000047'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bilanzanalyse nach IFRS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000049' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bilanzanalyse nach IFRS%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000077'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Latente Steuern%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000051' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Latente Steuern%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000078'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%CAS (Chinese%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000052' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%CAS (Chinese%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000079'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%CINA - Interessenten%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000053' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS - Interessenten%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000054' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%US-GAAP - Interessenten%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000055' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Rückstell%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000060' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Rückstell%') and (k.nr not like '%ON%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000080' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Sarb%') and (k.kurzbez not like '%2. Pflichtseminar%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000063' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Sarb%') and (k.nr not like '%ON%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000081' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%US-GAAP Basiswissen%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000062' 
+
+when ((k.nr not like '%INH%') and (k.Titel like '%CINA® Certificate in International Accounting%') and (k.kurzbez not like '%CINA® English%') 
+AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000003' 
+
+when (substring(KURZBEZ,1,4) = 'CINA' and k.AUSSENST in ('Viedeo','Online','Webinar') and k.KURZBEZ not like '%English%' and k.KURZBEZ not like '%Refresher%' and SUBSTRING(k.nr,1,3)not in ('LAB','LET','LSA')) then 'VAVA000082'
+
+when (substring(k.nr,1,3) = 'LAB') then 'VAVA000083'
+when (substring(k.nr,1,3) = 'LET') then 'VAVA000084'
+when (substring(k.nr,1,3) = 'LSA') then 'VAVA000085'
+
+when (substring(k.nr,1,3) = 'CAB') then 'VAVA000086'
+when (substring(k.nr,1,3) = 'CET') then 'VAVA000087'
+when (substring(k.nr,1,3) = 'CSA') then 'VAVA000088' 
+
+ELSE
+'NIX'
+
+END as VLG
+
+from kurse k
+where(
+case 
+
+when ((k.nr like '%BROSCH%')) THEN 'VAVA000001' ---Broschüre
+
+when ((k.nr like 'CR%')) THEN 'VAVA000002' ---Refresher-Prä
+when ((substring(k.nr,1,1) = 'L' ) and (k.TITEL like '%Refresher%')) THEN 'VAVA000027' ---Refresher-Online
+
+when ((substring(k.nr,1,1) = 'L' ) and (substring(k.kurzbez,7,3) = 'Eng' )) THEN 'VAVA000004' ---CINA-ENglisch
+
+when ((k.kurzbez like '%CINA® Konsolid%') and (k.TITEL not like '%CINA® Konsolidierung-Konsolidierung Basiswissen 1. Pflichtseminar%') and (k.TITEL not like '%2. Pflichtseminar%') 
+and (k.TITEL not like '%3. Pflichtseminar%') and (k.TITEL not like '%Impairment oder Konsolidierung Excel%')) THEN 'VAVA000005' ---CINA-Konso-Hauptkurs
+when ((k.TITEL like '%CINA® Konsolidierung-Konsolidierung Basiswissen 1. Pflichtseminar%')) THEN 'VAVA000006' ---CINA-Konso-1Wahlfach
+when ((k.TITEL like '%CINA® Konsolidierung-Konzernrechnungslegung 2. Pflichtseminar%')) THEN 'VAVA000007' ---CINA-Konso-2Wahlfach
+when ((k.TITEL like '%3. Pflichtseminar%')) THEN 'VAVA000008' ---CINA-Konso-3Wahlfach
+when ((k.TITEL like '%Impairment oder Konsolidierung Excel%')) THEN 'VAVA000009' ---CINA-Konso-4Wahlfach
+
+when ((k.kurzbez like 'IFRS Basiswissen%') AND (k.aussenst not in ('Webinar'))) THEN 'VAVA000010' ---IFRS Basiswissen-Prä
+when ((k.kurzbez like 'Ausfall: IFRS Basiswissen%') AND (k.aussenst not in ('Webinar'))) THEN 'VAVA000010' ---Ausfall:IFRS Basiswissen-Prä
+when ((k.kurzbez like 'IFRS Basiswissen%') AND (k.aussenst in ('Webinar'))) THEN 'VAVA000012' ---IFRS Basiswissen-Onli
+when ((k.kurzbez like 'Ausfall: IFRS Basiswissen%') AND (k.aussenst in ('Webinar'))) THEN 'VAVA000012' ---Ausfall:IFRS Basiswissen-Onli
+
+when ((k.kurzbez like '%Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000011' ---Excel-Anwenderseminar-Prä
+when ((k.kurzbez like '%Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000038' ---Excel-Anwenderseminar-Onli
+
+when ((substring(k.kurzbez,1,14) = 'Konsolidierung') and (k.kurzbez not like 'Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000013' ---Konsolidierung Excel-Anwenderseminar-Present
+when ((substring(k.kurzbez,1,23) = 'Ausfall: Konsolidierung') and (k.kurzbez not like 'Ausfall: Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000013' ---Ausfall:Konsolidierung Excel-Anwenderseminar-Present
+when ((substring(k.kurzbez,1,14) = 'Konsolidierung') and (k.kurzbez not like 'Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000063' ---Konsolidierung Excel-Anwenderseminar-Present
+when ((substring(k.kurzbez,1,23) = 'Ausfall: Konsolidierung') and (k.kurzbez not like 'Ausfall: Konsolidierung Excel-Anwenderseminar%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000063' ---Ausfall:Konsolidierung Excel-Anwenderseminar-Present
+
+when ((k.kurzbez like '%IFRS für Controller%')) THEN 'VAVA000014' ---IFRS für Controller
+
+when ((k.nr like '%INHAIR%')) THEN 'VAVA000015' ---Inhouse
+
+when ((k.kurzbez like '%IFRS Kom%') and (k.nr not like '%INHAIR%') and (k.kurzbez not like '%BayWa r.e. renewable energy GmbH, IFRS kompakt, 4-tägig%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000016' ---IFRSKompakt-Prä
+when ((k.kurzbez like '%IFRS Kom%') and (k.nr not like '%INHAIR%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000064' ---IFRSKompakt-onlin
+
+when ((k.kurzbez like '%Pensions%') and (k.nr not like '%INHAIR%')) THEN 'VAVA000017' ---Inhouse
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%CINA®  Specialist%') and (k.kurzbez not like '%CINA®  Specialist - 1. Pflichtseminar CINA® REFRESHER%') 
+and (k.kurzbez not like '%CINA®  Specialist - 1. Wahlseminar%') and (k.kurzbez not like '%CINA®  Specialist - 2. Wahlseminar%')) THEN 'VAVA000018' ---CINASpec-Haupt
+when ((k.kurzbez like '%CINA®  Specialist - 1. Pflichtseminar CINA® REFRESHER%')) THEN 'VAVA000048' ---CINASpec-1Pflichtsem
+when ((k.kurzbez like '%CINA®  Specialist - 1. Wahlseminar%')) THEN 'VAVA000020' ---CINA®  Specialist-1Wahlseminar
+when ((k.kurzbez like '%CINA®  Specialist - 2. Wahlseminar%')) THEN 'VAVA000021' ---CINA®  Specialist-2Wahlseminar
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Kompakt%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Wahlseminar%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Pflichtseminar%') 
+and (k.kurzbez not like '%Nypro Healthcare GmbH, US-GAAP kompakt, 1-tägig%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000019' ---US-GAAP-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Kompakt%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Wahlseminar%') and (k.kurzbez not like '%US-GAAP kompakt - 1. Pflichtseminar%') 
+and (k.kurzbez not like '%Nypro Healthcare GmbH, US-GAAP kompakt, 1-tägig%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000039' ---US-GAAP-Onl
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Update%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000022' ---US-GAAP-Update-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Update%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000040' ---US-GAAP Update-Onlin
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP für Führungs%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000023' ---US-GAAP-Führugskräfte-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP für Führungs%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000041' ---US-GAAP-Führugskräfte-Onlin
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%US-GAAP Specialist%') and (k.kurzbez not like '%1. Pflichtseminar%') and (k.kurzbez not like '%2. Pflichtseminar%')) THEN 'VAVA000024' ---US-GAAP-Spec
+when ((substring(k.nr,9,1) = 'A' ) and (k.kurzbez like '%US-GAAP Specialist%')) THEN 'VAVA000025' ---US-GAAP Specialist20-US-GAAP-KK-1Pflichtseminar
+when ((substring(k.nr,9,1) = 'B' ) and (k.kurzbez like '%US-GAAP Specialist%')) THEN 'VAVA000026' ---US-GAAP Specialist20-US-GAAP-SOX-2Pflichtseminar
+
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%IFRS Update%') and (k.kurzbez not like '%Basler AG- IFRS UPdate und Praxistraining, 1-tägig%') 
+and (k.kurzbez not like '%IFRS UPDATE: Aktuelle Trends und Änderungen der IFRS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000028' ---IFRSUpdate-Prä
+when ((k.nr not like '%INHAIR%') and (k.kurzbez like '%IFRS Update%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000056' ---IFRSUpdate-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Banken%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000050' ---IFRS bei Banken-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Banken%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000057' ---IFRS bei Banken-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen%') and (k.kurzbez not like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000029' ---IFRS bei Versicheurng-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen%') and (k.kurzbez not like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000065' ---IFRS bei Banken-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000030' ---IFRS bei Versicheurng-Bilanz-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS bei Versicherungen: Bilanzierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000066' ---IFRS bei Banken-Bilanz-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Konzernrechnungslegung%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000031' ---Konzernrechnungslegung-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Konzernrechnungslegung%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000067' ---Konzernrechnungslegung-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kaufpreisalo%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000032' ---Kaufpreisalo-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kaufpreisalo%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000068' ---Kaufpreisalo-Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Impairment%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000033' ---Impairment-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Impairment%') and (k.kurzbez not like '%CINA® Konsolidierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000069' ---Impairment--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Leasingbilanzierung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000034' ---Leasingbilanzierung-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Leasingbilanzierung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000070' ---Leasingbilanzierung--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Hedge%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000035' ---Hedge Accounting-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Hedge%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000071' ---Hedge Accounting--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Transaktionsprozesse%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000036' ---Transaktionsprozesse-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Transaktionsprozesse%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000072' ---Transaktionsprozesse--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Unternehmensbewertung - Mergers & Acquisitions%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000037' ---Bewertungsmethoden-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bewertungsmethoden%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000037' ---Bewertungsmethoden-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Unternehmensbewertung - Mergers & Acquisitions%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000073' ---Bewertungsmethoden-Onl
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bewertungsmethoden%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000073' ---Bewertungsmethoden-Onl
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Anlagenbuchhaltung nach IAS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000042' ---Anlagenbuchhaltung nach IAS-Prä
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS 16%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000043' ---IFS16
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kapitalflussrechnung%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000044' ---Kapitalflussrechnung-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Kapitalflussrechnung%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000074' ---Kapitalflussrechnung--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS 9%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000045' ---IFRS9-Prä
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS 9%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000075' ---IFRS9--Onlin
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Umsatz- und Gewinnrealisierung nach IFRS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000046' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Umsatz- und Gewinnrealisierung nach IFRS%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000076'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Accounting English%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000047'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bilanzanalyse nach IFRS%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000049' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Bilanzanalyse nach IFRS%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000077'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Latente Steuern%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000051' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Latente Steuern%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000078'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%CAS (Chinese%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000052' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%CAS (Chinese%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000079'
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%CINA - Interessenten%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000053' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%IFRS - Interessenten%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000054' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%US-GAAP - Interessenten%') AND (k.aussenst not in ('Webinar','Online'))) THEN 'VAVA000055' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Rückstell%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000060' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Rückstell%') and (k.nr not like '%ON%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000080' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Sarb%') and (k.kurzbez not like '%2. Pflichtseminar%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000063' 
+when ((k.nr not like '%INH%') and (k.kurzbez like '%Sarb%') and (k.nr not like '%ON%') AND (k.aussenst in ('Webinar','Online'))) THEN 'VAVA000081' 
+
+when ((k.nr not like '%INH%') and (k.kurzbez like '%US-GAAP Basiswissen%') AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000062' 
+
+when ((k.nr not like '%INH%') and (k.Titel like '%CINA® Certificate in International Accounting%') and (k.kurzbez not like '%CINA® English%') 
+AND (k.aussenst not in ('Webinar','Online','Video'))) THEN 'VAVA000003' 
+
+when (substring(KURZBEZ,1,4) = 'CINA' and k.AUSSENST in ('Viedeo','Online','Webinar') and k.KURZBEZ not like '%English%' and k.KURZBEZ not like '%Refresher%' and SUBSTRING(k.nr,1,3)not in ('LAB','LET','LSA')) then 'VAVA000082'
+
+when (substring(k.nr,1,3) = 'LAB') then 'VAVA000083'
+when (substring(k.nr,1,3) = 'LET') then 'VAVA000084'
+when (substring(k.nr,1,3) = 'LSA') then 'VAVA000085'
+
+when (substring(k.nr,1,3) = 'CAB') then 'VAVA000086'
+when (substring(k.nr,1,3) = 'CET') then 'VAVA000087'
+when (substring(k.nr,1,3) = 'CSA') then 'VAVA000088' 
+
+
+ELSE
+'NIX'
+
+END) = 'VAVA000083' and k.BEGINN_DAT >= '01.01.2015'
+

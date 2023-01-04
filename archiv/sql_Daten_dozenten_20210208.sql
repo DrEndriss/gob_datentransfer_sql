@@ -1,0 +1,143 @@
+use Kufer_Reporting
+
+select
+
+'D' as Adresstyp,
+iif(dozenten_ausw.nr is NULL, '', dozenten_ausw.nr) as nr,
+iif(name is NULL, '', name) as name,
+iif(vorname is NULL, '', vorname) as vorname, 	   
+iif(zusatz is NULL, '', zusatz) as zusatz, 	   
+iif(ZUSATZ2 is NULL, '', ZUSATZ2) as ZUSATZ2, 	   
+iif(ort is NULL, '', ort) as ort, 	   
+iif(strasse is NULL,'',Replace(REPLACE(Strasse COLLATE Latin1_General_CS_AS, 'Str.', 'Straﬂe') COLLATE Latin1_General_CS_AS, 'str.', 'straﬂe')  ) as strasse,  
+iif(TEL_ANZEIGE is NULL, '', TEL_ANZEIGE) as TEL_ANZEIGE, 	   
+iif(TEL2_ANZEIGE is NULL, '', TEL2_ANZEIGE) as TEL2_ANZEIGE, 	   
+iif(FAX_ANZEIGE is NULL, '', FAX_ANZEIGE) as FAX_ANZEIGE, 	   
+iif(EMAIL_ANZEIGE is NULL, '', EMAIL_ANZEIGE) as EMAIL_ANZEIGE, 	   
+iif(NOWERBUNG is NULL, '', NOWERBUNG) as NOWERBUNG, 	   
+'' as nomailwerb,
+'' as notelwerb,
+iif(geschlecht is NULL, '', geschlecht) as geschlecht, 	   
+iif(iif(Geburtstag is NULL, '30.12.1899', Geburtstag) = '30.12.1899', '',CONVERT(nvarchar(10),Geburtstag,20))  as GebDat,
+iif(BANKBEZ is NULL, '', BANKBEZ) as BANKBEZ, 	   
+iif(konto is NULL, '', konto) as konto, 	   
+iif(blz is NULL, '', blz) as blz, 	   
+
+'' as erm_grund,
+'' as erm_ende,
+'' as erm_proz,
+'' as guthaben,
+'' as kontoname,
+'' as kz_text,
+
+iif(BEARBEITER is NULL, '', BEARBEITER) as BEARBEITER, 	   
+iif(NATION is NULL, '', NATION) as NATION, 	   
+'' as BUNDESLAND,
+iif(iif(BEARBDATUM is NULL, '30.12.1899', BEARBDATUM) = '30.12.1899', '',CONVERT(nvarchar(10),BEARBDATUM,20) + ' ' + CONVERT(nvarchar(10),BEARBDATUM,114))  as BEARBDATUM,
+
+'' as RCHG_ADR_1,
+'' as RCHG_ADR_2,
+'' as RCHG_ADR_3,
+'' as RCHG_ADR_4,
+'' as RCHG_ADR_5,
+'' as RCHG_ADR_6,
+'' as RCHG_ADR_7,
+
+iif(Anrede is NULL, '', Anrede) as Anrede, 	   
+
+iif(MOBIL_ANZEIGE is NULL, '', MOBIL_ANZEIGE) as MOBIL_ANZEIGE, 	   
+'' as FAX2_ANZEIGE,
+'Infos werden manuell nachgetragen' as info, 	   
+iif(eLearningPersonAktiv is NULL, '', eLearningPersonAktiv) as eLearningPersonAktiv, 	   
+iif(eLearningLogin is NULL, '', eLearningLogin) as eLearningLogin, 	 
+iif(BIC is NULL, '', BIC) as BIC, 	   
+iif(IBAN is NULL, '', IBAN) as IBAN, 	   
+
+iif(iif(ErstelltDatum is NULL, '30.12.1899', ErstelltDatum) = '30.12.1899', '',CONVERT(nvarchar(10),ErstelltDatum,20))  as ErstelltDatum,
+iif(ErstelltVon is NULL, '', ErstelltVon) as ErstelltVon, 	   
+
+'' as krit1dummy,
+'' as krit2dummy,
+'' as krit3dummy,
+'' as krit4dummy,
+'' as krit5dummy,
+'' as krit6dummy,
+
+'' as SozProjekt,
+
+iif(Name_Titel is NULL, '', Name_Titel) as Name_Titel, 	   
+
+iif(eLearningDozID is NULL, '', eLearningDozID) as eLearningUserID, 	  
+iif(iif(eLearningVon is NULL, '30.12.1899', eLearningVon) = '30.12.1899', '',CONVERT(nvarchar(10),eLearningVon,20))  as eLearningVon,
+iif(iif(eLearningBis is NULL, '30.12.1899', eLearningBis) = '30.12.1899', '',CONVERT(nvarchar(10),eLearningBis,20))  as eLearningBis, 
+
+
+iif(Newsl_Erlaubt is NULL, '', Newsl_Erlaubt) as Newsl_Erlaubt, 	   
+iif(iif(Newsl_AnlDatum is NULL, '30.12.1899', Newsl_AnlDatum) = '30.12.1899', '',CONVERT(nvarchar(10),Newsl_AnlDatum,20))  as Newsl_AnlDatum, 
+'' as abteilung,
+'' as entsendvhs,
+'' as anm_sperre,
+'' as nofaxwerb,
+'' as krit7dummy,
+'' as krit8dummy,
+'' as krit9,
+'' as krit10,
+'' as krit11,
+'' as krit12,
+'' as krit13,
+'' as krit14,
+'' as krit15,
+'' as krit16,
+'' as krit17,
+'' as krit18,
+'' as krit19,
+'' as krit20,
+'' as krit21,
+'' as krit22,
+'' as krit23,
+'' as sap_angelegt,
+
+iif(SCHULKEY is NULL, '', SCHULKEY) as SCHULKEY,
+iif(BERUF is NULL, '', BERUF) as BERUF,
+iif(iif(SEITWANN is NULL, '30.12.1899', SEITWANN) = '30.12.1899', '',CONVERT(nvarchar(10),SEITWANN,20))  as SEITWANN,
+iif(KONTOINH is NULL, '', KONTOINH) as KONTOINH,
+iif(INAKTIV is NULL, '', INAKTIV) as INAKTIV,
+iif(FINANZAMT is NULL, '', FINANZAMT) as FINANZAMT,
+iif(VERTRAG is NULL, '', VERTRAG) as VERTRAG,
+iif(INFO_INTERN is NULL, '', INFO_INTERN) as INFO_INTERN,
+iif(INDHONSATZ is NULL, '', INDHONSATZ) as INDHONSATZ,
+iif(ANSPRACHE is NULL, '', ANSPRACHE) as ANSPRACHE,
+iif(iif(eLearningEMailDatum is NULL, '30.12.1899', eLearningEMailDatum) = '30.12.1899', '',CONVERT(nvarchar(10),eLearningEMailDatum,20))  as eLearningEMailDatum,
+iif(STEUERNR is NULL, '', STEUERNR) as STEUERNR,
+iif(Krit1 is NULL, '', Krit1) as Krit1Doz,
+
+iif(Krit2 is NULL, '', Krit2) as Krit2Doz,
+iif(Krit3 is NULL, '', Krit3) as Krit3Doz,
+iif(Krit4 is NULL, '', Krit4) as Krit4Doz,
+iif(Krit5 is NULL, '', Krit5) as Krit5Doz,
+iif(Krit6 is NULL, '', Krit6) as Krit6Doz,
+iif(Progheft is NULL, '', Progheft) as Progheft,
+iif(Internet is NULL, '', Internet) as Internet,
+iif(Anmkarte is NULL, '', Anmkarte) as Anmkarte,
+iif(mandant is NULL, '', mandant) as mandant,
+
+iif(krit7 is NULL, '', krit7) as krit7Doz,
+iif(krit8 is NULL, '', krit8) as krit8Doz,
+
+'' as ID,
+'' as Stelle,
+
+iif(Typ is NULL, '', Typ) as Typ,
+'' as sort,
+'' as zustmitarb,
+
+iif(iif(dse_unterschrieben_datum is NULL, '30.12.1899', dse_unterschrieben_datum) = '30.12.1899', '',CONVERT(nvarchar(10),dse_unterschrieben_datum,20))  as dse_unterschrieben_datum,
+iif(dse_unterschrieben_bearbeiter is NULL, '', dse_unterschrieben_bearbeiter) as dse_unterschrieben_bearbeiter,
+iif(dse_unterschrieben_weg is NULL, '', dse_unterschrieben_weg) as dse_unterschrieben_weg,
+iif(iif(dse_widerrufen_datum is NULL, '30.12.1899', dse_widerrufen_datum) = '30.12.1899', '',CONVERT(nvarchar(10),dse_widerrufen_datum,20))  as dse_widerrufen_datum,
+iif(dse_widerrufen_bearbeiter is NULL, '', dse_widerrufen_bearbeiter) as dse_widerrufen_bearbeiter,
+iif(dse_widerrufen_weg is NULL, '', dse_widerrufen_weg) as dse_widerrufen_weg
+
+from DOZENTEN_AUSW left join dozenten2 on dozenten_ausw.nr = dozenten2.nr
+
+where (DOZENTEN_AUSW.name <>'')

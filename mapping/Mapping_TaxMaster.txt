@@ -1,0 +1,106 @@
+select k.NR,k.TITEL,k.kurzbez, k.aussenst,
+
+case 
+
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%') and (k.kurzbez not like '%Master of Arts in Taxation - Klassik%')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbos%') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%')  and (k.kurzbez not like '%Master of Arts in Taxation - TurboPlus%')
+and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestandenes%') and (k.kurzbez not like '%TaxMaster - Modul 1: Basiswissen%') and (k.kurzbez not like '%TaxMaster - Modul 4: Betriebswirtscha%')
+and (k.kurzbez not like '%MMaster of Arts in Taxation - Steuerbe%') and (k.kurzbez not like '%TaxMaster - Modul 2:%') and (k.kurzbez not like '%TaxMaster - Modul 5:%')
+and (k.kurzbez not like '%TaxMaster - Modul 6:%') and (k.kurzbez not like '%TaxMaster - Modul 7:%') and (k.kurzbez not like '%TaxMaster - Modul 3: %') and (k.kurzbez not like '%TaxMaster - Prüfung%')
+and (k.kurzbez not like '%TaxMaster - Prüfung Modul 3 & 4 %') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 7%') AND (k.aussenst not in ('Online-Kurs', 'Online')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbo%') and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestande%') and (k.kurzbez not like '%SteuerberaterPlus%')
+)) THEN 'VAVT000001' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%') and (k.kurzbez not like '%Master of Arts in Taxation - Klassik%')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbos%') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%')  and (k.kurzbez not like '%Master of Arts in Taxation - TurboPlus%')
+and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestandenes%') and (k.kurzbez not like '%TaxMaster - Modul 1: Basiswissen%') and (k.kurzbez not like '%TaxMaster - Modul 4: Betriebswirtscha%')
+and (k.kurzbez not like '%MMaster of Arts in Taxation - Steuerbe%') and (k.kurzbez not like '%TaxMaster - Modul 2:%') and (k.kurzbez not like '%TaxMaster - Modul 5:%')
+and (k.kurzbez not like '%TaxMaster - Modul 6:%') and (k.kurzbez not like '%TaxMaster - Modul 7:%') and (k.kurzbez not like '%TaxMaster - Modul 3: %') and (k.kurzbez not like '%TaxMaster - Prüfung%')
+and (k.kurzbez not like '%TaxMaster - Prüfung Modul 3 & 4 %') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 7%') AND (k.aussenst in ('Online-Kurs', 'Online')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbo%') and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestande%') and (k.kurzbez not like '%SteuerberaterPlus%')
+)) THEN 'VAVT000009' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 1: Basiswissen%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000002' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 1: Basiswissen%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000010' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 2:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000003' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 2:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000011' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 3: %') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000004' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 3: %') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000012' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 4: Betriebswirtscha%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000005' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 4: Betriebswirtscha%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000013' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 5:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000006' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 5:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000014' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 6:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000007' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 6:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000015' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 7:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000008' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 7:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000016' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - SteuerberaterPlus%')) THEN 'VAVT000020' ---
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - FlexPlus%')) THEN 'VAVT000027' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - Klassik%')) THEN 'VAVT000017' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - Turbo%') and (k.kurzbez not like '%Master of Arts in Taxation - TurboPlus%')) THEN 'VAVT000018' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - TurboPlus%')) THEN 'VAVT000019' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Sammelkurs%')) THEN 'VAVT000026' ---
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung%') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 3 & 4 %') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 7%')
+and (k.kurzbez  not like '%TaxMaster - Prüfung Modul 5%') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 1%')) THEN 'VAVT000021'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 3 & 4 %')) THEN 'VAVT000023'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 7%')) THEN 'VAVT000025'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 5%')) THEN 'VAVT000024'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 1%')) THEN 'VAVT000022' 
+
+
+ELSE
+'NIX'
+
+END as VLG
+
+from kurse k
+where(
+case 
+
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%') and (k.kurzbez not like '%Master of Arts in Taxation - Klassik%')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbos%') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%')  and (k.kurzbez not like '%Master of Arts in Taxation - TurboPlus%')
+and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestandenes%') and (k.kurzbez not like '%TaxMaster - Modul 1: Basiswissen%') and (k.kurzbez not like '%TaxMaster - Modul 4: Betriebswirtscha%')
+and (k.kurzbez not like '%MMaster of Arts in Taxation - Steuerbe%') and (k.kurzbez not like '%TaxMaster - Modul 2:%') and (k.kurzbez not like '%TaxMaster - Modul 5:%')
+and (k.kurzbez not like '%TaxMaster - Modul 6:%') and (k.kurzbez not like '%TaxMaster - Modul 7:%') and (k.kurzbez not like '%TaxMaster - Modul 3: %') and (k.kurzbez not like '%TaxMaster - Prüfung%')
+and (k.kurzbez not like '%TaxMaster - Prüfung Modul 3 & 4 %') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 7%') AND (k.aussenst not in ('Online-Kurs', 'Online')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbo%') and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestande%') and (k.kurzbez not like '%SteuerberaterPlus%')
+)) THEN 'VAVT000001' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%') and (k.kurzbez not like '%Master of Arts in Taxation - Klassik%')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbos%') and (k.kurzbez not like '%Master of Arts in Taxation - FlexPlus%')  and (k.kurzbez not like '%Master of Arts in Taxation - TurboPlus%')
+and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestandenes%') and (k.kurzbez not like '%TaxMaster - Modul 1: Basiswissen%') and (k.kurzbez not like '%TaxMaster - Modul 4: Betriebswirtscha%')
+and (k.kurzbez not like '%MMaster of Arts in Taxation - Steuerbe%') and (k.kurzbez not like '%TaxMaster - Modul 2:%') and (k.kurzbez not like '%TaxMaster - Modul 5:%')
+and (k.kurzbez not like '%TaxMaster - Modul 6:%') and (k.kurzbez not like '%TaxMaster - Modul 7:%') and (k.kurzbez not like '%TaxMaster - Modul 3: %') and (k.kurzbez not like '%TaxMaster - Prüfung%')
+and (k.kurzbez not like '%TaxMaster - Prüfung Modul 3 & 4 %') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 7%') AND (k.aussenst in ('Online-Kurs', 'Online')
+and (k.kurzbez not like '%Master of Arts in Taxation - Turbo%') and (k.kurzbez not like '%TaxMaster - Sammelkurs für bestande%') and (k.kurzbez not like '%SteuerberaterPlus%')
+)) THEN 'VAVT000009' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 1: Basiswissen%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000002' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 1: Basiswissen%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000010' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 2:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000003' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 2:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000011' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 3: %') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000004' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 3: %') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000012' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 4: Betriebswirtscha%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000005' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 4: Betriebswirtscha%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000013' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 5:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000006' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 5:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000014' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 6:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000007' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 6:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000015' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 7:%') AND (k.aussenst not in ('Online-Kurs', 'Online'))) THEN 'VAVT000008' ----Prä
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Modul 7:%') AND (k.aussenst in ('Online-Kurs', 'Online'))) THEN 'VAVT000016' ----Online
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - SteuerberaterPlus%')) THEN 'VAVT000020' ---
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - FlexPlus%')) THEN 'VAVT000027' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - Klassik%')) THEN 'VAVT000017' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - Turbo%') and (k.kurzbez not like '%Master of Arts in Taxation - TurboPlus%')) THEN 'VAVT000018' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Master of Arts in Taxation - TurboPlus%')) THEN 'VAVT000019' 
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%Sammelkurs%')) THEN 'VAVT000026' ---
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung%') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 3 & 4 %') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 7%')
+and (k.kurzbez  not like '%TaxMaster - Prüfung Modul 5%') and (k.kurzbez not like '%TaxMaster - Prüfung Modul 1%')) THEN 'VAVT000021'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 3 & 4 %')) THEN 'VAVT000023'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 7%')) THEN 'VAVT000025'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 5%')) THEN 'VAVT000024'
+when ((substring(k.nr,2,2) = 'M8') and (k.kurzbez like '%TaxMaster - Prüfung Modul 1%')) THEN 'VAVT000022' 
+
+
+ELSE
+'NIX'
+
+END) = 'VAVT000021' and k.BEGINN_DAT >= '01.01.2015'
+
