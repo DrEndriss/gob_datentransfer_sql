@@ -438,7 +438,8 @@ SELECT
 	-- NEU AB 05.10.2022 case  Block, welcher die Veranstaltungsnummer der Hörsaale generiert hat, wurde entfernt (siehe Archiv) - TK
 	-- NEU AB 05.10.2022 Veranstaltungsort Nummern werden aus der Tabelle BCVeranstaltungsnummer gejoint - TK
 	-- NEU AB 05.10.2022 STFS Hörsälle bekommen die selbe Vorlagennummer wie Ihre Hauptveranstaltungsorte (siehe Tabelle BCVeranstaltungsnummer) - TK
-	BCVeranstaltungsnummer.BCNummer AS [Veranstaltungsort Nr]
+	BCVeranstaltungsnummer.BCNummer AS [Veranstaltungsort Nr],
+	kf.kursauswahl20 as Rechtsstand
 FROM
 	kurse k
 	-- NEU AB 15.07.2022 Join Kursort Tablle um auf Strasse zuzugreifen, damit die BCNummern eindeutig hinzugefügt werden können - TK
